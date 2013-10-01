@@ -3,6 +3,7 @@
 ///<reference path='../typings/jqueryui/jqueryui.d.ts' />
 ///<reference path='../typings/googlemaps/google.maps.d.ts' />
 ///<reference path='../typings/highcharts/highcharts.d.ts' />
+
 var models;
 (function (models) {
     var MainModel = (function () {

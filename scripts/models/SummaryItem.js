@@ -1,5 +1,6 @@
 ///<reference path='../typings/knockout/knockout.d.ts' />
 var models;
+
 (function (models) {
     var SummaryItem = (function () {
         function SummaryItem(msmeData, indData, type) {
