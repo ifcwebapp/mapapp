@@ -247,6 +247,10 @@ var models;
             }
         };
 
+        MainModel.prototype.numberWithCommas = function (x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        };
+
         MainModel.prototype.initiateBubbles = function (main) {
             if (this.bubbles.length == 0) {
                 for (var i = 0; i < models.MsmeData.rows.length; i++) {
@@ -262,7 +266,7 @@ var models;
                         //console.log(info[0] + ":" + models.CountryRegionMap.map[info[0]]);
                         var rowNum = 1;
                         if (info[5] != null) {
-                            str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td><strong>#MSMEs</strong></td><td style='text-align:right'>" + info[5] + "</td></tr>";
+                            str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td><strong>#MSMEs</strong></td><td style='text-align:right'>" + main.numberWithCommas(info[5]) + "</td></tr>";
                         }
                         if (info[6] != null) {
                             str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td><strong>Have Checking</strong></td><td style='text-align:right'>" + info[6] + "</td></tr>";
@@ -277,7 +281,7 @@ var models;
                             str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td><strong>Have Access to Credit</strong></td><td style='text-align:right'>" + info[9] + "</td></tr>";
                         }
                         if (info[10] != null) {
-                            str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td><strong>A2F as major/severe barrier</strong></td><td style='text-align:right'>" + info[10] + "</td></tr>";
+                            str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td><strong>A2F as major/severe barrier</strong></td><td style='text-align:right'>" + main.numberWithCommas(info[10]) + "</td></tr>";
                         }
                         if (info[11] != null) {
                             str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td><strong>Does not need credit %</strong></td><td style='text-align:right'>" + info[11] + "</td></tr>";
