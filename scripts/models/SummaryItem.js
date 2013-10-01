@@ -11,8 +11,8 @@ var models;
             switch (type) {
                 case 'country':
                     this.Name = msmeData[0];
-                    this.EnterprisesCount = this.parseIntValue(msmeData[5]);
-                    this.A2F = this.parseIntValue(msmeData[10]);
+                    this.EnterprisesCount = this.parseFloatValue(msmeData[5]);
+                    this.A2F = this.parseFloatValue(msmeData[10]);
                     this.Checking = this.parseIntValue(msmeData[6]);
                     this.Overdratf = this.parseIntValue(msmeData[7]);
                     this.Loan = this.parseIntValue(msmeData[8]);
@@ -53,8 +53,8 @@ var models;
                     break;
                 case 'region':
                     this.Name = msmeData[0];
-                    this.EnterprisesCount = this.parseIntValue(msmeData[5]);
-                    this.A2F = this.parseIntValue(msmeData[10]);
+                    this.EnterprisesCount = this.parseFloatValue(msmeData[5]);
+                    this.A2F = this.parseFloatValue(msmeData[10]);
                     this.Checking = this.parseIntValue(msmeData[6]);
                     this.Overdratf = this.parseIntValue(msmeData[7]);
                     this.Loan = this.parseIntValue(msmeData[8]);
@@ -70,8 +70,8 @@ var models;
                     break;
                 case 'development':
                     this.Name = msmeData[0];
-                    this.EnterprisesCount = this.parseIntValue(msmeData[1]);
-                    this.A2F = this.parseIntValue(msmeData[2]);
+                    this.EnterprisesCount = this.parseFloatValue(msmeData[1]);
+                    this.A2F = this.parseFloatValue(msmeData[2]);
                     this.Checking = this.parseIntValue(msmeData[3]);
                     this.Overdratf = this.parseIntValue(msmeData[4]);
                     this.Loan = this.parseIntValue(msmeData[5]);
@@ -91,14 +91,18 @@ var models;
             return (obj != null) ? parseInt(obj) : null;
         };
 
+        SummaryItem.prototype.numberWithCommas = function (x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        };
+
         SummaryItem.prototype.parseFloatValue = function (obj) {
             var result = null;
             if (obj != "") {
                 result = parseFloat(obj);
                 if (result == parseInt(obj)) {
-                    return obj;
+                    return this.numberWithCommas(obj);
                 } else {
-                    return result.toFixed(2);
+                    return this.numberWithCommas(result.toFixed(2));
                 }
             } else {
                 return obj;

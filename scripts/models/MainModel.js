@@ -72,7 +72,7 @@ var models;
         MainModel.prototype.createCharts = function (data) {
             $('#accountChart').highcharts({
                 chart: { type: 'column' },
-                title: { text: 'Accounts' },
+                title: { text: 'Access' },
                 xAxis: { categories: ['Have Checking', 'Have Overdraft', 'Have Loan', 'Have Access to Credit'] },
                 yAxis: { title: { text: "%" } },
                 series: [{ name: "item1", data: [] }, { name: "item2", data: [] }, { name: "item3", data: [] }],
@@ -84,7 +84,7 @@ var models;
 
             $('#serviceChart').highcharts({
                 chart: { type: 'column' },
-                title: { text: 'Service Quality' },
+                title: { text: 'How well served?' },
                 xAxis: {
                     categories: ['Does not need credit', 'Unserved', 'Underserved', 'Well served']
                 },
