@@ -1,6 +1,5 @@
 ///<reference path='../typings/knockout/knockout.d.ts' />
 var models;
-
 (function (models) {
     var SummaryItem = (function () {
         function SummaryItem(msmeData, indData, type) {
@@ -14,6 +13,7 @@ var models;
                     this.Name = msmeData[0];
                     this.EnterprisesCount = this.parseFloatValue(msmeData[5]);
                     this.A2F = this.parseFloatValue(msmeData[10]);
+                    this.A2F += (this.A2F != "" ? '%' : '');
                     this.Checking = this.parseIntValue(msmeData[6]);
                     this.Overdratf = this.parseIntValue(msmeData[7]);
                     this.Loan = this.parseIntValue(msmeData[8]);
@@ -56,6 +56,7 @@ var models;
                     this.Name = msmeData[0];
                     this.EnterprisesCount = this.parseFloatValue(msmeData[5]);
                     this.A2F = this.parseFloatValue(msmeData[10]);
+                    this.A2F += (this.A2F != "" ? '%' : '');
                     this.Checking = this.parseIntValue(msmeData[6]);
                     this.Overdratf = this.parseIntValue(msmeData[7]);
                     this.Loan = this.parseIntValue(msmeData[8]);
@@ -73,6 +74,7 @@ var models;
                     this.Name = msmeData[0];
                     this.EnterprisesCount = this.parseFloatValue(msmeData[1]);
                     this.A2F = this.parseFloatValue(msmeData[2]);
+                    this.A2F += (this.A2F != "" ? '%' : '');
                     this.Checking = this.parseIntValue(msmeData[3]);
                     this.Overdratf = this.parseIntValue(msmeData[4]);
                     this.Loan = this.parseIntValue(msmeData[5]);
@@ -98,7 +100,7 @@ var models;
 
         SummaryItem.prototype.parseFloatValue = function (obj) {
             var result = null;
-            if (obj != "") {
+            if (obj != "" && obj != null) {
                 result = parseFloat(obj);
                 if (result == parseInt(obj)) {
                     return this.numberWithCommas(obj);
@@ -106,7 +108,7 @@ var models;
                     return this.numberWithCommas(result.toFixed(2));
                 }
             } else {
-                return obj;
+                return "";
             }
         };
 
