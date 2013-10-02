@@ -18,7 +18,7 @@ var models;
             this.isLegendVisible = ko.observable(true);
             this.countries = ko.observableArray([]);
             this.countriesAndRegions = ko.observableArray([]);
-            this.isExpanded = ko.observable(false);
+            this.isExpanded = ko.observable(true);
             this.selectedValues = ko.observableArray();
             this.summaryType = ko.observable('summary');
             var _this = this;
