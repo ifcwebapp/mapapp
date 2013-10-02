@@ -3,7 +3,6 @@
 ///<reference path='../typings/jqueryui/jqueryui.d.ts' />
 ///<reference path='../typings/googlemaps/google.maps.d.ts' />
 ///<reference path='../typings/highcharts/highcharts.d.ts' />
-
 var models;
 (function (models) {
     var MainModel = (function () {
@@ -16,8 +15,10 @@ var models;
             this.chartIndicatorValue = ko.observable('account');
             this.bubbleIndicatorValue = ko.observable('19');
             this.isChartSelectorVisible = ko.observable(false);
+            this.isLegendVisible = ko.observable(true);
             this.countries = ko.observableArray([]);
             this.countriesAndRegions = ko.observableArray([]);
+            this.isExpanded = ko.observable(false);
             this.selectedValues = ko.observableArray();
             this.summaryType = ko.observable('summary');
             var _this = this;
@@ -56,11 +57,13 @@ var models;
 
             _this.countriesAndRegions.push(new models.SummaryItem(models.MsmeDevelopingData.rows, null, 'development'));
 
+            $('#scrollablePart').height($(window).height() - 160);
             _this.summaryDialog = $('#summary').dialog({
                 autoOpen: false,
                 modal: true,
                 height: $(window).height() - 100,
-                width: 1400
+                width: 1400,
+                dialogClass: 'noTitleDialog'
             });
 
             _this.createCharts(_this);
@@ -69,7 +72,18 @@ var models;
                 this.selectedValues.push(ko.observable(new models.SummaryItem(null, null, 'empty')));
                 //this.selectedItems.push(ko.observable(new SummaryItem(null, null, 'empty')));
             }
+
+            _this.shortPanelText = ko.computed(function () {
+                var b = _this.bubbleIndicatorValue();
+                var c = _this.chartIndicatorValue();
+                var k = _this.kmlValue();
+                return '<strong>Layer:</strong> ' + $('#colorIndicator option:selected').text() + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Indicator:</strong>' + (!_this.isChartSelectorVisible() ? $('#bubbleIndicator option:selected').text() : $('#chartIndicator option:selected').text());
+            });
         }
+        MainModel.prototype.closeSummary = function (data) {
+            data.summaryDialog.dialog('close');
+        };
+
         MainModel.prototype.createCharts = function (data) {
             $('#accountChart').highcharts({
                 chart: { type: 'column' },
@@ -174,6 +188,10 @@ var models;
             $('div[id="legend' + val + '"]').show();
         };
 
+        MainModel.prototype.expandMenu = function (data) {
+            data.isExpanded(!data.isExpanded());
+        };
+
         MainModel.prototype.showBubbles = function (zoom, map) {
             //var selector = $('#bubbleIndicator');
             var id = this.bubbleIndicatorValue();
@@ -242,10 +260,12 @@ var models;
             if (this.kmlValue() != '') {
                 this.ctaLayer = new google.maps.KmlLayer(this.host + "indicators/" + this.kmlValue(), {
                     preserveViewport: true,
-                    screenOverlays: true
+                    screenOverlays: this.isLegendVisible()
                 });
                 this.ctaLayer.setMap(this.map);
             }
+
+            return true;
         };
 
         MainModel.prototype.numberWithCommas = function (x) {
