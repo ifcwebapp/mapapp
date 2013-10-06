@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html>
 <html>
-  <head>
+<head>
     <title>Simple Map</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
@@ -11,100 +11,146 @@
     <script src="scripts/jquery-ui-1.10.3.min.js"></script>
     <script src="scripts/knockout-2.3.0.js"></script>
     <script src="scripts/highcharts.js"></script>
-    <script src="scripts/models/CountryRegionMap.js" type="text/javascript" ></script>
-    <script src="scripts/models/MsmeData.js" type="text/javascript" ></script>
-    <script src="scripts/models/MsmeDevelopingData.js" type="text/javascript" ></script>
-    <script src="scripts/models/CountryIndicatorData.js" type="text/javascript" ></script>
-    <script src="scripts/models/MsmeRegionData.js" type="text/javascript" ></script>
-    <script src="scripts/models/SummaryItem.js" type="text/javascript" ></script>
-    
-	<script src="scripts/models/MainModel.js" type="text/javascript" ></script>
-    
-  </head>
-  <body>
-      <div style="position: absolute; left: 50%">
-          <div id="shortPanel" data-bind="visible: !isExpanded(), click: expandMenu">
-              <div data-bind="html: shortPanelText"></div>
-              <div class="clear"></div>
-          </div>
-    <div id="panel" data-bind="visible: isExpanded">
-        <div class="title left">Map Layer:</div>
-        <div class="left"> 
-            <select id="colorIndicator" data-bind="value: kmlValue, event: { change: getKml }" >
-                <option value="IncomeLevel.kmz">Income Level</option>
-                <option value="NY.GDP.PCAP.CD.kmz">GDP per capita (current US$), 2011</option>
-                <option value="NY.GDP.PCAP.KD.kmz">GDP per capita (constant 2005 US$), 2011</option>
-                <option value="FB.CBK.BRCH.P5.kmz">Commercial bank branches (per 100,000 adults), 2011</option>
-                <option value="FS.AST.PRVT.GD.ZS.kmz">Domestic credit to private sector (% of GDP), 2011</option>
-                <option value="SP.POP.TOTL.kmz">Population, total, 2011</option>
-                <option value="IT.CEL.SETS.P2.kmz">Mobile cellular subscriptions (per 100 people), 2011</option>
-                <option value="SL.TLF.TOTL.IN.kmz">Labor force, total, 2011</option>
-                <option value="SI.POV.2DAY.kmz">Poverty headcount ratio at $2 a day (PPP) (% of population), 2011</option>
-                <option value="IC.LGL.CRED.XQ.kmz">Strength of legal rights index (0=weak to 10=strong), 2011</option>
-                <option value="IC.CRD.INFO.XQ.kmz">Credit depth of information index (0=low to 6=high), 2011</option>
-                <option value="IC.BUS.EASE.XQ.kmz">Ease of doing business index (1=most business-friendly regulations), 2011</option>
-                <option value="SE.ADT.LITR.ZS.kmz">Literacy rate, adult total (% of people ages 15 and above), 2011</option>
-                <option value="SL.UEM.TOTL.ZS.kmz">Unemployment, total (% of total labor force), 2011</option>
-                <option value="IC.CRD.PRVT.ZS.kmz">Private credit bureau coverage (% of adults), 2011</option>
-                <option value="IC.CRD.PUBL.ZS.kmz">Public credit registry coverage (% of adults), 2011</option>
-            </select>
+    <script src="scripts/models/CountryRegionMap.js" type="text/javascript"></script>
+    <script src="scripts/models/MsmeData.js" type="text/javascript"></script>
+    <script src="scripts/models/MsmeDevelopingData.js" type="text/javascript"></script>
+    <script src="scripts/models/CountryIndicatorData.js" type="text/javascript"></script>
+    <script src="scripts/models/MsmeRegionData.js" type="text/javascript"></script>
+    <script src="scripts/models/SummaryItem.js" type="text/javascript"></script>
+    <script src="scripts/models/MainModel.js" type="text/javascript"></script>
+
+</head>
+<body>
+    <div id="wrap">
+        <div id="header">
+            <script type="text/javascript">
+                $("#header").load("header.html");
+            </script>
         </div>
-        <div class="left"><input id="showLegend" name="showLegend" type="checkbox" data-bind="checked: isLegendVisible, click: getKml" /><label for="showLegend">Show Legend</label></div>
-        <div class="clear" ></div>
-        <div class="title left">Indicator Style: </div>
-        <div class="left">
-        <select id="indicatorStyle" data-bind="value: indicatorStyleValue, event: { change: showSelectors }" >
-            <option value="bubble">Bubble</option>
-            <option value="chart">Chart</option>
-        </select>
-        </div>
-        <div class="left" id="bubbleSelector" data-bind="visible: !isChartSelectorVisible()" >
-        
-        <select id="bubbleIndicator" data-bind="value: bubbleIndicatorValue, event: { change: showSelectors }" >
-            <option value="19">dollar value gap</option>
-            <option value="5"># of enterprises</option>
-            <option value="12">relative value gap in % terms unserved (%)</option>
-            <option value="13">relative value gap in % terms underserved (%)</option>
-        </select>
-        </div>
-        <div class="left" id="chartSelector" data-bind="visible: isChartSelectorVisible">
-        
-        <select id="chartIndicator" data-bind="value: chartIndicatorValue, event: { change: function () { showSelectors(); showLegend() } }">
-            <option value="account">Access</option>
-            <option value="served">How well served?</option>
-            <option value="source">Source of financing</option>
-        </select>
-            
-        </div>
-        <div class="clear"></div>
-        <div data-bind="visible: isChartSelectorVisible">
-            <div id="legendserved" style="display: none">
-                <div style="float: left; background-color: #4D140F; color: white; padding: 2px 5px;">Well served, %</div>
-                <div style="float: left; background-color: #A22B20; color: white; margin-left: 5px; padding: 2px 5px;">Underserved, %</div>
-                <div style="float: left; background-color: #DC594D; color: white; margin-left: 5px; padding: 2px 5px;">Unserved, %</div>
-                <div style="float: left; background-color: #ECA8A2; color: white; margin-left: 5px; padding: 2px 5px;">Does not need credit, %</div>
+        <div id="main">
+            <div style="position: absolute; left: 500px">
+                <div id="shortPanel" style="max-width: 700px" data-bind="visible: !isExpanded(), click: expandMenu">
+                    <div data-bind="html: shortPanelText"></div>
+                    <div class="clear"></div>
+                </div>
+                <div id="panel" data-bind="visible: isExpanded">
+                    <div class="title left">Map Layer:</div>
+                    <div class="left">
+                        <select id="colorIndicator" data-bind="value: kmlValue, event: { change: getKml }">
+                            <option value="IncomeLevel.kmz">Income Level</option>
+                            <option value="NY.GDP.PCAP.CD.kmz">GDP per capita (current US$), 2011</option>
+                            <option value="NY.GDP.PCAP.KD.kmz">GDP per capita (constant 2005 US$), 2011</option>
+                            <option value="FB.CBK.BRCH.P5.kmz">Commercial bank branches (per 100,000 adults), 2011</option>
+                            <option value="FS.AST.PRVT.GD.ZS.kmz">Domestic credit to private sector (% of GDP), 2011</option>
+                            <option value="SP.POP.TOTL.kmz">Population, total, 2011</option>
+                            <option value="IT.CEL.SETS.P2.kmz">Mobile cellular subscriptions (per 100 people), 2011</option>
+                            <option value="SL.TLF.TOTL.IN.kmz">Labor force, total, 2011</option>
+                            <option value="SI.POV.2DAY.kmz">Poverty headcount ratio at $2 a day (PPP) (% of population), 2011</option>
+                            <option value="IC.LGL.CRED.XQ.kmz">Strength of legal rights index (0=weak to 10=strong), 2011</option>
+                            <option value="IC.CRD.INFO.XQ.kmz">Credit depth of information index (0=low to 6=high), 2011</option>
+                            <option value="IC.BUS.EASE.XQ.kmz">Ease of doing business index (1=most business-friendly regulations), 2011</option>
+                            <option value="SE.ADT.LITR.ZS.kmz">Literacy rate, adult total (% of people ages 15 and above), 2011</option>
+                            <option value="SL.UEM.TOTL.ZS.kmz">Unemployment, total (% of total labor force), 2011</option>
+                            <option value="IC.CRD.PRVT.ZS.kmz">Private credit bureau coverage (% of adults), 2011</option>
+                            <option value="IC.CRD.PUBL.ZS.kmz">Public credit registry coverage (% of adults), 2011</option>
+                        </select>
+                    </div>
+                    <div class="left">
+                        <input id="showLegend" name="showLegend" type="checkbox" data-bind="checked: isLegendVisible, click: getKml" /><label for="showLegend">Show Legend</label>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="title left">Indicator Style: </div>
+                    <div class="left">
+                        <select id="indicatorStyle" data-bind="value: indicatorStyleValue, event: { change: showSelectors }">
+                            <option value="bubble">Bubble</option>
+                            <option value="chart">Chart</option>
+                        </select>
+                    </div>
+                    <div class="left" id="bubbleSelector" data-bind="visible: !isChartSelectorVisible()">
+
+                        <select id="bubbleIndicator" data-bind="value: bubbleIndicatorValue, event: { change: showSelectors }">
+                            <option value="19">dollar value gap</option>
+                            <option value="5"># of enterprises</option>
+                            <option value="12">relative value gap in % terms unserved (%)</option>
+                            <option value="13">relative value gap in % terms underserved (%)</option>
+                        </select>
+                    </div>
+                    <div class="left" id="chartSelector" data-bind="visible: isChartSelectorVisible">
+
+                        <select id="chartIndicator" data-bind="value: chartIndicatorValue, event: { change: function () { showSelectors(); showLegend() } }">
+                            <option value="account">Access</option>
+                            <option value="served">How well served?</option>
+                            <option value="source">Source of financing</option>
+                        </select>
+
+                    </div>
+                    <div class="clear"></div>
+                    <div data-bind="visible: isChartSelectorVisible">
+                        <div id="legendserved" style="display: none">
+                            <div style="float: left; background-color: #4D140F; color: white; padding: 2px 5px;">Well served, %</div>
+                            <div style="float: left; background-color: #A22B20; color: white; margin-left: 5px; padding: 2px 5px;">Underserved, %</div>
+                            <div style="float: left; background-color: #DC594D; color: white; margin-left: 5px; padding: 2px 5px;">Unserved, %</div>
+                            <div style="float: left; background-color: #ECA8A2; color: white; margin-left: 5px; padding: 2px 5px;">Does not need credit, %</div>
+                        </div>
+                        <div id="legendaccount" style="display: block">
+                            <div style="float: left; background-color: #4D140F; color: white; padding: 2px 5px;">Have Access to Credit, %</div>
+                            <div style="float: left; background-color: #A22B20; color: white; margin-left: 5px; padding: 2px 5px;">Have Loan, %</div>
+                            <div style="float: left; background-color: #DC594D; color: white; margin-left: 5px; padding: 2px 5px;">Have Overdraft, %</div>
+                            <div style="float: left; background-color: #ECA8A2; color: white; margin-left: 5px; padding: 2px 5px;">Have Checking, %</div>
+                        </div>
+                        <div id="legendsource" style="display: none">
+                            <div style="float: left; background-color: #4D140F; color: white; padding: 2px 5px;">Other, %</div>
+                            <div style="float: left; background-color: #A22B20; color: white; margin-left: 5px; padding: 2px 5px;">Non-bank Financial Institution, %</div>
+                            <div style="float: left; background-color: #DC594D; color: white; margin-left: 5px; padding: 2px 5px;">State-owned Bank and/or Govt. Agency, %</div>
+                            <div style="float: left; background-color: #ECA8A2; color: white; margin-left: 5px; padding: 2px 5px;">Private Commercial Bank, %</div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div style="width: 100%;">
+                        <div class="up" data-bind="click: expandMenu"></div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
             </div>
-            <div id="legendaccount" style="display: block">
-                <div style="float: left; background-color: #4D140F; color: white; padding: 2px 5px;">Have Access to Credit, %</div>
-                <div style="float: left; background-color: #A22B20; color: white; margin-left: 5px; padding: 2px 5px;">Have Loan, %</div>
-                <div style="float: left; background-color: #DC594D; color: white; margin-left: 5px; padding: 2px 5px;">Have Overdraft, %</div>
-                <div style="float: left; background-color: #ECA8A2; color: white; margin-left: 5px; padding: 2px 5px;">Have Checking, %</div>
+            <div>
+                <div id="map-canvas"></div>
+                <div id="rightColumn">Studies have underscored the importance of small businesses in contributing to economic growth and job creation making them a key development priority. Nevertheless, the total unmet need for credit by all MSMEs in emerging markets today exceeds $2 trillion dollars. 45–55 percent of informal and formal MSMEs in developing economies are either unserved or underserved. Read full report </div>
+                <div class="clear"></div>
             </div>
-            <div id="legendsource" style="display: none">
-                <div style="float: left; background-color: #4D140F; color: white; padding: 2px 5px;">Other, %</div>
-                <div style="float: left; background-color: #A22B20; color: white; margin-left: 5px; padding: 2px 5px;">Non-bank Financial Institution, %</div>
-                <div style="float: left; background-color: #DC594D; color: white; margin-left: 5px; padding: 2px 5px;">State-owned Bank and/or Govt. Agency, %</div>
-                <div style="float: left; background-color: #ECA8A2; color: white; margin-left: 5px; padding: 2px 5px;">Private Commercial Bank, %</div>
+
+            <div id="data">
+                <div class="section clearfix">
+                    <div id="bottom-left">
+                        <h2>REPORT</h2>
+                        Add image of report
+Closing the Credit Gap for Formal and Informal MSMEs (Full PDF report)
+Key Findings (PDF)
+
+                    </div>
+                    <div id="bottom-middle">
+                        <h2>DATA</h2>
+                        Download MSME credit gap data for 177 countries
+
+                    </div>
+                    <div id="bottom-right">
+                        <h2>CONNECT WITH US</h2>
+                        <div id="twitter_logo">
+                            <a href="https://twitter.com/SMEFinanceForum" title="SME Finance Forum Twitter" target="_blank">
+                                <div style="width: 100%; height: 100%"></div>
+                            </a>
+                        </div>
+                        <div id="linkedin_logo">
+                            <a href="http://www.linkedin.com/groups/SME-Finance-Forum-managed-IFC-4416977" title="SME Finance Forum LinkedIn" target="_blank">
+                                <div style="width: 100%; height: 100%"></div>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="clear"></div>
-        <div style="width: 100%;" >
-            <div class="up" data-bind="click: expandMenu"></div>
-        </div>
-        <div class="clear"></div>
     </div>
-       </div>
-    <div id="map-canvas"></div>
+
     <div id="summary">
         <div style="margin-bottom: 10px">
             <input type="radio" name="summaryType" value="summary" data-bind="checked: summaryType, click: onCountryChange" />Country Summary
@@ -112,35 +158,38 @@
             <div class="close right" data-bind="click: closeSummary"></div>
         </div>
         <div id="scrollablePart" style="overflow-y: auto">
-        <table>
-            <tr>
-                <td></td>
-                <td><select style="width: 200px" data-bind="options: countries, optionsText: 'Name', value: selectedValues()[0], event: { change: onCountryChange }"></select></td>
-                <td><select style="width: 200px" data-bind="options: countriesAndRegions, optionsText: 'Name', value: selectedValues()[1], event: { change: onCountryChange }, enable: summaryType() == 'compare'"></select></td>
-                <td><select style="width: 200px" data-bind="options: countriesAndRegions, optionsText: 'Name', value: selectedValues()[2], event: { change: onCountryChange }, enable: summaryType() == 'compare'"></select></td>
-            </tr>
-            <tr>
-                <td style="font-size: 1.1em; font-weight: bold"># of Enterprises</td>
-                <td data-bind="text: selectedValues()[0]().EnterprisesCount"></td>
-                <td data-bind="text: selectedValues()[1]().EnterprisesCount"></td>
-                <td data-bind="text: selectedValues()[2]().EnterprisesCount"></td>
-            </tr>
-            <tr class="odd">
-                <td style="font-size: 1.1em; font-weight: bold">A2F as major/severe barrier</td>
-                <td data-bind="text: selectedValues()[0]().A2F"></td>
-                <td data-bind="text: selectedValues()[1]().A2F"></td>
-                <td data-bind="text: selectedValues()[2]().A2F"></td>
-            </tr>
-        <tr>
-            <td colspan="4">
-                <div>
-                    <div id="accountChart" style="min-width: 410px; height: 300px; float: left"></div>
-                    <div id="serviceChart" style="min-width: 410px; height: 300px; float: left"></div>
-                    <div id="sourceChart" style="min-width: 410px; height: 300px; float: left"></div>
-                </div>
-            </td>
-                
-            </tr>
+            <table>
+                <tr>
+                    <td></td>
+                    <td>
+                        <select style="width: 200px" data-bind="options: countries, optionsText: 'Name', value: selectedValues()[0], event: { change: onCountryChange }"></select></td>
+                    <td>
+                        <select style="width: 200px" data-bind="options: countriesAndRegions, optionsText: 'Name', value: selectedValues()[1], event: { change: onCountryChange }, enable: summaryType() == 'compare'"></select></td>
+                    <td>
+                        <select style="width: 200px" data-bind="options: countriesAndRegions, optionsText: 'Name', value: selectedValues()[2], event: { change: onCountryChange }, enable: summaryType() == 'compare'"></select></td>
+                </tr>
+                <tr>
+                    <td style="font-size: 1.1em; font-weight: bold"># of Enterprises</td>
+                    <td data-bind="text: selectedValues()[0]().EnterprisesCount"></td>
+                    <td data-bind="text: selectedValues()[1]().EnterprisesCount"></td>
+                    <td data-bind="text: selectedValues()[2]().EnterprisesCount"></td>
+                </tr>
+                <tr class="odd">
+                    <td style="font-size: 1.1em; font-weight: bold">A2F as major/severe barrier</td>
+                    <td data-bind="text: selectedValues()[0]().A2F"></td>
+                    <td data-bind="text: selectedValues()[1]().A2F"></td>
+                    <td data-bind="text: selectedValues()[2]().A2F"></td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <div>
+                            <div id="accountChart" style="min-width: 410px; height: 300px; float: left"></div>
+                            <div id="serviceChart" style="min-width: 410px; height: 300px; float: left"></div>
+                            <div id="sourceChart" style="min-width: 410px; height: 300px; float: left"></div>
+                        </div>
+                    </td>
+
+                </tr>
                 <tr>
                     <td>GDP per capita (constant 2005 US$) </td>
                     <td data-bind="text: selectedValues()[0]().Gdp2005"></td>
@@ -291,13 +340,19 @@
                     <td data-bind="text: selectedValues()[1]().UrbanPopulation"></td>
                     <td data-bind="text: selectedValues()[2]().UrbanPopulation"></td>
                 </tr>
-                
-            
-        </table>
+
+
+            </table>
         </div>
     </div>
-      <script type="text/javascript">
-          ko.applyBindings(new models.MainModel('http://ifcwebapp.github.io/mapapp/'));
-</script>
-  </body>
+    <div id="footer">
+        <script type="text/javascript">
+            $("#footer").load("footer.html");
+        </script>
+    </div>
+    <script type="text/javascript">
+        ko.applyBindings(new models.MainModel('http://ifcwebapp.github.io/mapapp/'));
+
+    </script>
+</body>
 </html>
