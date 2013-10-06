@@ -15,7 +15,7 @@ var models;
             this.chartIndicatorValue = ko.observable('account');
             this.bubbleIndicatorValue = ko.observable('19');
             this.isChartSelectorVisible = ko.observable(false);
-            this.isLegendVisible = ko.observable(true);
+            this.isLegendVisible = ko.observable(false);
             this.countries = ko.observableArray([]);
             this.countriesAndRegions = ko.observableArray([]);
             this.isExpanded = ko.observable(true);
@@ -26,7 +26,12 @@ var models;
             var mapOptions = {
                 zoom: 4,
                 center: new google.maps.LatLng(57.028774, 19.068832),
-                mapTypeId: google.maps.MapTypeId.ROADMAP
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                streetViewControl: false,
+                panControl: false,
+                zoomControlOptions: { style: google.maps.ZoomControlStyle.SMALL },
+                mapTypeControl: false,
+                scrollwheel: false
             };
 
             _this.map = new google.maps.Map($('#map-canvas')[0], mapOptions);
