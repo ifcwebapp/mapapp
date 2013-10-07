@@ -21,6 +21,8 @@ var models;
             this.isExpanded = ko.observable(true);
             this.selectedValues = ko.observableArray();
             this.summaryType = ko.observable('summary');
+            this.linkText = ko.observable('Show link to this page');
+            this.isLinkVisible = ko.observable(false);
             var _this = this;
             _this.host = host;
             var countryParams = [_this.getUrlParameter('country1'), _this.getUrlParameter('country2'), _this.getUrlParameter('country3')];
@@ -76,9 +78,7 @@ var models;
             _this.createCharts(_this);
 
             for (var i = 0; i < 3; i++) {
-                 {
-                    this.selectedValues.push(ko.observable(new models.SummaryItem(null, null, 'empty')));
-                }
+                this.selectedValues.push(ko.observable(new models.SummaryItem(null, null, 'empty')));
             }
 
             if (countryParams[0] != "null") {
@@ -91,9 +91,22 @@ var models;
                 var k = _this.kmlValue();
                 return '<strong>Layer:</strong> ' + $('#colorIndicator option:selected').text() + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Indicator:</strong>' + (!_this.isChartSelectorVisible() ? $('#bubbleIndicator option:selected').text() : $('#chartIndicator option:selected').text());
             });
+
+            _this.link = ko.computed(function () {
+                return _this.host + '?country1=' + encodeURIComponent(_this.selectedValues()[0]().Name) + '&country2=' + encodeURIComponent(_this.selectedValues()[1]().Name) + '&country3=' + encodeURIComponent(_this.selectedValues()[2]().Name);
+            });
         }
         MainModel.prototype.getUrlParameter = function (name) {
             return decodeURI((RegExp(name + '=' + '(.+?)(&|$)').exec(location.search) || [, null])[1]);
+        };
+
+        MainModel.prototype.showLink = function (data) {
+            if (data.isLinkVisible()) {
+                data.linkText('Show link to this page');
+            } else {
+                data.linkText('Hide');
+            }
+            data.isLinkVisible(!data.isLinkVisible());
         };
 
         MainModel.prototype.closeSummary = function (data) {
@@ -181,10 +194,16 @@ var models;
         };
 
         MainModel.prototype.showSummaryDialog = function (data, event, country) {
-            var c = $.grep(data.countries(), function (e, i) {
-                return e.Name == country;
-            });
-            data.selectedValues()[0](c[0]);
+            if (country != undefined) {
+                var c = $.grep(data.countries(), function (e, i) {
+                    return e.Name == country;
+                });
+                if (c.length > 0) {
+                    data.selectedValues()[0](c[0]);
+                }
+            } else {
+                data.selectedValues()[0](data.countries()[0]);
+            }
             data.summaryType('summary');
             data.onCountryChange(data, event);
             data.summaryDialog.dialog("open");
