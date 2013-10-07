@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>Simple Map</title>
+    <title>Main</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <link href="styles/main.css" rel="stylesheet" type="text/css" />
@@ -28,15 +28,17 @@
             </script>
         </div>
         <div id="main">
-            <div style="position: absolute; left: 500px">
+            
+            <div>
+                <div id="leftColumn">
                 <div id="shortPanel" style="max-width: 700px" data-bind="visible: !isExpanded(), click: expandMenu">
                     <div data-bind="html: shortPanelText"></div>
                     <div class="clear"></div>
                 </div>
                 <div id="panel" data-bind="visible: isExpanded">
-                    <div class="title left">Map Layer:</div>
+                    <div class="title left" style="padding-top: 4px">Map Layer:</div>
                     <div class="left">
-                        <select id="colorIndicator" data-bind="value: kmlValue, event: { change: getKml }">
+                        <select id="colorIndicator" style="width: 457px;" data-bind="value: kmlValue, event: { change: getKml }">
                             <option value="IncomeLevel.kmz">Income Level</option>
                             <option value="NY.GDP.PCAP.CD.kmz">GDP per capita (current US$), 2011</option>
                             <option value="NY.GDP.PCAP.KD.kmz">GDP per capita (constant 2005 US$), 2011</option>
@@ -56,19 +58,21 @@
                         </select>
                     </div>
                     <div class="left">
-                        <input id="showLegend" name="showLegend" type="checkbox" data-bind="checked: isLegendVisible, click: getKml" /><label for="showLegend">Show Legend</label>
+                        <input id="showLegend" name="showLegend" style="margin-top: 6px; margin-left: 10px" type="checkbox" data-bind="checked: isLegendVisible, click: getKml" />
+                        
                     </div>
+                    <div class="left" style="height: 18px; padding-top: 4px;">Show Legend</div>
                     <div class="clear"></div>
-                    <div class="title left">Indicator Style: </div>
+                    <div class="title left"  style="padding-top: 4px">Indicator Style: </div>
                     <div class="left">
-                        <select id="indicatorStyle" data-bind="value: indicatorStyleValue, event: { change: showSelectors }">
+                        <select id="indicatorStyle" style="width: 70px;" data-bind="value: indicatorStyleValue, event: { change: showSelectors }">
                             <option value="bubble">Bubble</option>
                             <option value="chart">Chart</option>
                         </select>
                     </div>
                     <div class="left" id="bubbleSelector" data-bind="visible: !isChartSelectorVisible()">
 
-                        <select id="bubbleIndicator" data-bind="value: bubbleIndicatorValue, event: { change: showSelectors }">
+                        <select id="bubbleIndicator" style="width: 387px;" data-bind="value: bubbleIndicatorValue, event: { change: showSelectors }">
                             <option value="19">dollar value gap</option>
                             <option value="5"># of enterprises</option>
                             <option value="12">relative value gap in % terms unserved (%)</option>
@@ -83,6 +87,9 @@
                             <option value="source">Source of financing</option>
                         </select>
 
+                    </div>
+                    <div class="left" style="height: 18px; padding-top: 4px; padding-left: 25px">
+                        <a href="#" data-bind="click: showSummaryDialog">Show Summary</a>
                     </div>
                     <div class="clear"></div>
                     <div data-bind="visible: isChartSelectorVisible">
@@ -106,15 +113,15 @@
                         </div>
                     </div>
                     <div class="clear"></div>
-                    <div style="width: 100%;">
+                    <!--<div style="width: 100%;">
                         <div class="up" data-bind="click: expandMenu"></div>
-                    </div>
+                    </div>-->
                     <div class="clear"></div>
                 </div>
-            </div>
-            <div>
                 <div id="map-canvas"></div>
-                <div id="rightColumn">Studies have underscored the importance of small businesses in contributing to economic growth and job creation making them a key development priority. Nevertheless, the total unmet need for credit by all MSMEs in emerging markets today exceeds $2 trillion dollars. 45–55 percent of informal and formal MSMEs in developing economies are either unserved or underserved. Read full report </div>
+            </div>
+                
+                <div id="rightColumn" style=""><p>Studies have underscored the importance of small businesses in contributing to economic growth and job creation making them a key development priority.</p> Nevertheless, the total unmet need for credit by all MSMEs in emerging markets today exceeds $2 trillion dollars. 45–55 percent of informal and formal MSMEs in developing economies are either unserved or underserved. <a href="documents/Report.pdf">Read full report</a> </div>
                 <div class="clear"></div>
             </div>
 
@@ -122,10 +129,7 @@
                 <div class="section clearfix">
                     <div id="bottom-left">
                         <h2>REPORT</h2>
-                        Add image of report
-Closing the Credit Gap for Formal and Informal MSMEs (Full PDF report)
-Key Findings (PDF)
-
+                        Closing the Credit Gap for Formal and Informal MSMEs (<a href="documents/Report.pdf">Full PDF report</a>)
                     </div>
                     <div id="bottom-middle">
                         <h2>DATA</h2>
@@ -155,6 +159,7 @@ Key Findings (PDF)
         <div style="margin-bottom: 10px">
             <input type="radio" name="summaryType" value="summary" data-bind="checked: summaryType, click: onCountryChange" />Country Summary
             <input type="radio" name="summaryType" value="compare" data-bind="checked: summaryType, click: onCountryChange" />Compare Countries
+            
             <div class="close right" data-bind="click: closeSummary"></div>
         </div>
         <div id="scrollablePart" style="overflow-y: auto">

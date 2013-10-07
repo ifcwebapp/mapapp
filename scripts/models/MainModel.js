@@ -23,6 +23,8 @@ var models;
             this.summaryType = ko.observable('summary');
             var _this = this;
             _this.host = host;
+            var countryParams = [_this.getUrlParameter('country1'), _this.getUrlParameter('country2'), _this.getUrlParameter('country3')];
+
             var mapOptions = {
                 zoom: 4,
                 center: new google.maps.LatLng(57.028774, 19.068832),
@@ -74,8 +76,13 @@ var models;
             _this.createCharts(_this);
 
             for (var i = 0; i < 3; i++) {
-                this.selectedValues.push(ko.observable(new models.SummaryItem(null, null, 'empty')));
-                //this.selectedItems.push(ko.observable(new SummaryItem(null, null, 'empty')));
+                 {
+                    this.selectedValues.push(ko.observable(new models.SummaryItem(null, null, 'empty')));
+                }
+            }
+
+            if (countryParams[0] != "null") {
+                _this.showInitSummaryDialog(_this, null, countryParams[0], countryParams[1], countryParams[2]);
             }
 
             _this.shortPanelText = ko.computed(function () {
@@ -85,6 +92,10 @@ var models;
                 return '<strong>Layer:</strong> ' + $('#colorIndicator option:selected').text() + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Indicator:</strong>' + (!_this.isChartSelectorVisible() ? $('#bubbleIndicator option:selected').text() : $('#chartIndicator option:selected').text());
             });
         }
+        MainModel.prototype.getUrlParameter = function (name) {
+            return decodeURI((RegExp(name + '=' + '(.+?)(&|$)').exec(location.search) || [, null])[1]);
+        };
+
         MainModel.prototype.closeSummary = function (data) {
             data.summaryDialog.dialog('close');
         };
@@ -175,6 +186,24 @@ var models;
             });
             data.selectedValues()[0](c[0]);
             data.summaryType('summary');
+            data.onCountryChange(data, event);
+            data.summaryDialog.dialog("open");
+        };
+
+        MainModel.prototype.showInitSummaryDialog = function (data, event, country1, country2, country3) {
+            var c1 = $.grep(data.countriesAndRegions(), function (e, i) {
+                return e.Name == country1;
+            });
+            var c2 = $.grep(data.countriesAndRegions(), function (e, i) {
+                return e.Name == country2;
+            });
+            var c3 = $.grep(data.countriesAndRegions(), function (e, i) {
+                return e.Name == country3;
+            });
+            data.selectedValues()[0](c1[0]);
+            data.selectedValues()[1](c2[0]);
+            data.selectedValues()[2](c3[0]);
+            data.summaryType('compare');
             data.onCountryChange(data, event);
             data.summaryDialog.dialog("open");
         };
