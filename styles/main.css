@@ -125,7 +125,7 @@ td {
 }
 
 .odd {
-    background-color: #eae7e7;
+    background-color: #C4D4E1;
 }
 
 .even {
@@ -194,12 +194,12 @@ td {
     }
 
     #main-nav ul li:hover {
-        background-color: #D9DCCF;
+        background-color: #A1BCD1;
     }
 
     #main-nav ul li:hover a {
-        color: #4D5146;
-        border-top: 2px solid #4D5146;
+        color: #fff;
+        border-top: 2px solid #487192;
         line-height: 26px;
         background: none !important;
     }
