@@ -352,6 +352,14 @@ a:focus {
     font-size: 1.1em;
 }
 
+.methodologyRight {
+    float: right;
+    padding: 0px 8px;
+    height: 600px;
+    width: 200px;
+    font-size: 1.2em;
+}
+
 .m_table {
     border-spacing:0;
     margin: 10px 0px;

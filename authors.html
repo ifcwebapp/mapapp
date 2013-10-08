@@ -17,9 +17,16 @@
             </script>
         </div>
         <div id="main">
-            <h2>AUTHORS</h2>
-            <div>To be updated</div>
-            
+            <div id="leftColumn" class="methodology" style="height: auto">
+                <h1>AUTHORS</h1>
+                <div>To be updated</div>
+            </div>
+            <div id="mRight" class="methodologyRight" >
+                <script type="text/javascript">
+                    $("#mRight").load("right_column.html");
+            </script>
+                
+            </div>
         </div>
     </div>
 
@@ -29,9 +36,6 @@
             $("#footer").load("footer.html");
         </script>
     </div>
-    <script type="text/javascript">
-        ko.applyBindings(new models.MainModel('http://ifcwebapp.github.io/mapapp/'));
-
-    </script>
+   
 </body>
 </html>
