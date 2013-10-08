@@ -42,19 +42,28 @@ body:before {
 
 #map-canvas {
     width: 750px;
-    height: 500px;
+    height: 550px;
 }
 
 #rightColumn {
     float: right;
-    margin: 50px 10px 0px 5px;
-    padding-left: 4px;
+    margin: 40px 10px 0px 5px;
+    padding: 0px 8px;
     height: 500px;
-    width: 220px;
+    width: 200px;
     text-align: justify;
+    font-size: 1.2em;
     /*border-left: solid 1px #DDD;*/
     
 }
+
+.shift {
+    padding-left: 20px;
+}
+
+    .shift strong {
+        font-weight:normal;
+    }
 
 #leftColumn {
     float: left;
