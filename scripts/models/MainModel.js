@@ -116,7 +116,7 @@ var models;
         MainModel.prototype.createCharts = function (data) {
             $('#accountChart').highcharts({
                 chart: { type: 'column' },
-                colors: ['#762A83', '#9970AB', '#C2A5CF'],
+                //colors: ['#762A83', '#9970AB', '#C2A5CF'],
                 title: { text: 'Access' },
                 xAxis: { categories: ['Have Checking', 'Have Overdraft', 'Have Loan', 'Have Access to Credit'] },
                 yAxis: { title: { text: "%" } },
@@ -129,7 +129,7 @@ var models;
 
             $('#serviceChart').highcharts({
                 chart: { type: 'column' },
-                colors: ['#762A83', '#9970AB', '#C2A5CF'],
+                //colors: ['#762A83', '#9970AB', '#C2A5CF'],
                 title: { text: 'How well served?' },
                 xAxis: {
                     categories: ['Does not need credit', 'Unserved', 'Underserved', 'Well served']
@@ -144,7 +144,7 @@ var models;
 
             $('#sourceChart').highcharts({
                 chart: { type: 'column' },
-                colors: ['#762A83', '#9970AB', '#C2A5CF'],
+                //colors: ['#762A83', '#9970AB', '#C2A5CF'],
                 title: { text: 'Source of Financing' },
                 xAxis: {
                     categories: ['Private Commercial Bank', 'State-owned Bank and/or Govt. Agency', 'Non-bank Financial Institution', 'Other']
@@ -266,7 +266,7 @@ var models;
                     bubble.setIcon({
                         path: google.maps.SymbolPath.CIRCLE,
                         fillOpacity: 1,
-                        fillColor: '#AF8DC3',
+                        fillColor: '#762A83',
                         strokeOpacity: 0,
                         scale: alpha[id] * parseInt(bubble.data[id]) + (zoom - 3) * 4
                     });
