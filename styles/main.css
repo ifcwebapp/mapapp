@@ -344,10 +344,12 @@ a:focus {
 
 .methodology h1{
     color: #365F91;
+    font-size: 1.2em;
 }
 
 .methodology h2 {
     color: #4F81BC;
+    font-size: 1.1em;
 }
 
 .m_table {
