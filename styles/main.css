@@ -342,4 +342,29 @@ a:focus {
     line-height: 15px;
 }
 
+.methodology h1{
+    color: #365F91;
+}
+
+.methodology h2 {
+    color: #4F81BC;
+}
+
+.m_table {
+    border-spacing:0;
+    margin: 10px 0px;
+}
+
+.m_table thead tr td {
+    border-top: 2px solid #365F91;
+    border-bottom: 2px solid #365F91;
+    color: #365F91;
+    font-weight: bold;
+}
+
+.m_table td.last_row {
+    border-bottom: 2px solid #365F91;
+
+}
+
 
