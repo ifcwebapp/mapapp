@@ -28,14 +28,15 @@ var models;
             var countryParams = [_this.getUrlParameter('country1'), _this.getUrlParameter('country2'), _this.getUrlParameter('country3')];
 
             var mapOptions = {
-                zoom: 4,
-                center: new google.maps.LatLng(57.028774, 19.068832),
+                zoom: 2,
+                center: new google.maps.LatLng(45.58329, 12.980347),
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
                 streetViewControl: false,
                 panControl: false,
                 zoomControlOptions: { style: google.maps.ZoomControlStyle.SMALL },
                 mapTypeControl: false,
-                scrollwheel: false
+                scrollwheel: false,
+                minZoom: 1
             };
 
             _this.map = new google.maps.Map($('#map-canvas')[0], mapOptions);
@@ -50,12 +51,12 @@ var models;
 
             for (var i = 0; i < models.MsmeData.rows.length; i++) {
                 var c = new models.SummaryItem(models.MsmeData.rows[i], models.CountryIndicatorData.rows[models.MsmeData.rows[i][1]], 'country');
-                _this.countries.push(c);
+
+                //_this.countries.push(c);
                 _this.countriesAndRegions.push(c);
             }
-            _this.countries.sort(function (left, right) {
-                return left.Name == right.Name ? 0 : (left.Name < right.Name ? -1 : 1);
-            });
+
+            //_this.countries.sort(function (left, right) { return left.Name == right.Name ? 0 : (left.Name < right.Name ? -1 : 1) });
             _this.countriesAndRegions.sort(function (left, right) {
                 return left.Name == right.Name ? 0 : (left.Name < right.Name ? -1 : 1);
             });
@@ -179,17 +180,17 @@ var models;
                     if (r.Name == 'Developing Countries') {
                         data.selectedValues()[2](r);
                     }
-                    if (r.type == 'region' || r.type == 'development') {
-                        data.countries.remove(r);
-                    }
+                    //if (r.type == 'region' || r.type == 'development') {
+                    //    data.countries.remove(r);
+                    //}
                 }
             } else {
-                for (var i = 0; i < data.countriesAndRegions().length; i++) {
-                    var r = data.countriesAndRegions()[i];
-                    if (r.type == 'region' || r.type == 'development') {
-                        data.countries.push(r);
-                    }
-                }
+                //for (var i = 0; i < data.countriesAndRegions().length; i++) {
+                //    var r = data.countriesAndRegions()[i];
+                //    if (r.type == 'region' || r.type == 'development') {
+                //        data.countries.push(r);
+                //    }
+                //}
             }
 
             data.changeSelectedCountry(data, event);
@@ -198,14 +199,14 @@ var models;
 
         MainModel.prototype.showSummaryDialog = function (data, event, country) {
             if (country != undefined) {
-                var c = $.grep(data.countries(), function (e, i) {
+                var c = $.grep(data.countriesAndRegions(), function (e, i) {
                     return e.Name == country;
                 });
                 if (c.length > 0) {
                     data.selectedValues()[0](c[0]);
                 }
             } else {
-                data.selectedValues()[0](data.countries()[0]);
+                data.selectedValues()[0](data.countriesAndRegions()[0]);
             }
             data.summaryType('summary');
             data.onCountryChange(data, event);
@@ -233,9 +234,9 @@ var models;
         MainModel.prototype.showSelectors = function () {
             this.isChartSelectorVisible(this.indicatorStyleValue() == "chart");
 
-            if (this.map.getZoom() > 3) {
-                this.showBubbles(this.map.getZoom(), this.map);
-            }
+            //if (this.map.getZoom() > 3) {
+            this.showBubbles(this.map.getZoom(), this.map);
+            //}
         };
 
         MainModel.prototype.showLegend = function () {
@@ -250,42 +251,94 @@ var models;
 
         MainModel.prototype.showBubbles = function (zoom, map) {
             //var selector = $('#bubbleIndicator');
+            var isCountry = (zoom > 3);
             var id = this.bubbleIndicatorValue();
-            var alpha = {
-                "19": 50 / 1000000000000,
-                "5": 50 / 100000000,
-                "12": 50 / 200,
-                "13": 50 / 200
-            };
             var isBubble = (this.indicatorStyleValue() == "bubble");
             var chartData = this.chartIndicatorValue();
+            var alpha = {};
+            var betta = {};
+            var scaledZoom = isCountry ? zoom - 3 : zoom;
+            if (isCountry) {
+                switch (id) {
+                    case "gap":
+                        alpha.index = 19;
+                        alpha.value = 50 / 1000000000000;
+                        break;
+                    case "enterprise":
+                        alpha.index = 5;
+                        alpha.value = 50 / 100000000;
+                        break;
+                    case "unserved":
+                        alpha.index = 12;
+                        alpha.value = 50 / 200;
+                        break;
+                    case "underserved":
+                        alpha.index = 13;
+                        alpha.value = 50 / 200;
+                        break;
+                }
+
+                switch (chartData) {
+                    case "account":
+                        betta.index = 21;
+                        break;
+                    case "served":
+                        betta.index = 23;
+                        break;
+                    case "source":
+                        betta.index = 25;
+                        break;
+                }
+            } else {
+                switch (id) {
+                    case "gap":
+                        alpha.index = 25;
+                        alpha.value = 50 / 5000000000000;
+                        break;
+                    case "enterprise":
+                        alpha.index = 5;
+                        alpha.value = 50 / 100000000;
+                        break;
+                    case "unserved":
+                        alpha.index = 12;
+                        alpha.value = 50 / 200;
+                        break;
+                    case "underserved":
+                        alpha.index = 13;
+                        alpha.value = 50 / 100;
+                        break;
+                }
+
+                switch (chartData) {
+                    case "account":
+                        betta.index = 30;
+                        break;
+                    case "served":
+                        betta.index = 32;
+                        break;
+                    case "source":
+                        betta.index = 34;
+                        break;
+                }
+            }
+
             for (var i = 0; i < this.bubbles.length; i++) {
                 var bubble = this.bubbles[i];
-
+                if ((bubble.bubbleType != "country" && isCountry) || (bubble.bubbleType != "region" && !isCountry)) {
+                    continue;
+                }
                 if (isBubble) {
                     bubble.setIcon({
                         path: google.maps.SymbolPath.CIRCLE,
                         fillOpacity: 1,
                         fillColor: '#762A83',
                         strokeOpacity: 0,
-                        scale: alpha[id] * parseInt(bubble.data[id]) + (zoom - 3) * 4
+                        scale: alpha.value * parseInt(bubble.data[alpha.index]) + scaledZoom * 4
                     });
                 } else {
-                    var sizeId = -1;
-                    switch (chartData) {
-                        case "account":
-                            sizeId = 21;
-                            break;
-                        case "served":
-                            sizeId = 23;
-                            break;
-                        case "source":
-                            sizeId = 25;
-                            break;
-                    }
                     bubble.setIcon({
                         url: this.host + "images/" + chartData + "/" + bubble.data[1] + ".png",
-                        scaledSize: new google.maps.Size(bubble.data[sizeId - 1] / 4 * (zoom - 3), bubble.data[sizeId] / 4 * (zoom - 3))
+                        scaledSize: new google.maps.Size(bubble.data[betta.index - 1] / 4 * scaledZoom, bubble.data[betta.index] / 4 * scaledZoom)
                     });
                 }
                 bubble.setMap(map);
@@ -301,11 +354,8 @@ var models;
 
         MainModel.prototype.zoomChanged = function (map) {
             var zoomLevel = map.getZoom();
-            if (zoomLevel > 3) {
-                this.showBubbles(zoomLevel, map);
-            } else {
-                this.hideBubbles();
-            }
+            this.hideBubbles();
+            this.showBubbles(zoomLevel, map);
         };
 
         MainModel.prototype.getKml = function () {
@@ -328,75 +378,142 @@ var models;
             return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         };
 
+        MainModel.prototype.getCountryInfo = function (info) {
+            var str = "<h2>" + info[0] + "</h2><a href='#' id='link" + info[1] + "' data-bind='click : function(data, event) { showSummaryDialog(data, event, \"" + info[0] + "\") }'>Show Summary</a><table>";
+
+            //console.log(info[0] + ":" + models.CountryRegionMap.map[info[0]]);
+            var rowNum = 1;
+            if (info[5] != null) {
+                str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td><strong>#MSMEs</strong></td><td style='text-align:right'>" + this.numberWithCommas(info[5]) + "</td></tr>";
+            }
+            if (info[10] != null) {
+                str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td><strong>A2F as major/severe barrier</strong></td><td style='text-align:right'>" + this.numberWithCommas(info[10]) + "</td></tr>";
+            }
+            if ((info[6] != null) || (info[7] != null) || (info[8] != null) || (info[9] != null)) {
+                str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td colspan=2><strong>Access</strong></td></tr>";
+                if (info[6] != null) {
+                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Have Checking</strong></td><td style='text-align:right'>" + info[6] + "</td></tr>";
+                }
+                if (info[7] != null) {
+                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Have Overdraft</strong></td><td style='text-align:right'>" + info[7] + "</td></tr>";
+                }
+                if (info[8] != null) {
+                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Have Loan</strong></td><td style='text-align:right'>" + info[8] + "</td></tr>";
+                }
+                if (info[9] != null) {
+                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Have Access to Credit</strong></td><td style='text-align:right'>" + info[9] + "</td></tr>";
+                }
+            }
+            if ((info[11] != null) || (info[12] != null) || (info[13] != null) || (info[14] != null)) {
+                str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td colspan=2><strong>How well served?</strong></td></tr>";
+                if (info[11] != null) {
+                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Does not need credit %</strong></td><td style='text-align:right'>" + info[11] + "</td></tr>";
+                }
+                if (info[12] != null) {
+                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Unserved %</strong></td><td style='text-align:right'>" + info[12] + "</td></tr>";
+                }
+                if (info[13] != null) {
+                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Underserved %</strong></td><td style='text-align:right'>" + info[13] + "</td></tr>";
+                }
+                if (info[14] != null) {
+                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Well served %</strong></td><td style='text-align:right'>" + info[14] + "</td></tr>";
+                }
+            }
+            if ((info[15] != null) || (info[16] != null) || (info[17] != null) || (info[18] != null)) {
+                str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td colspan=2><strong>Source of Financing</strong></td></tr>";
+                if (info[15] != null) {
+                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Private Commercial Bank as Source of Financing</strong></td><td style='text-align:right'>" + info[15] + "</td></tr>";
+                }
+                if (info[16] != null) {
+                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>State-owned Bank and/or Govt. Agency as Source of Financing</strong></td><td style='text-align:right'>" + info[16] + "</td></tr>";
+                }
+                if (info[17] != null) {
+                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Non-bank Financial Institution as Source of Financing</strong></td><td style='text-align:right'>" + info[17] + "</td></tr>";
+                }
+                if (info[18] != null) {
+                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Other Source of Financing</strong></td><td style='text-align:right'>" + info[18] + "</td></tr>";
+                }
+            }
+            str += "</table>";
+
+            return str;
+        };
+
+        MainModel.prototype.getRegionInfo = function (info) {
+            var str = "<h2>" + info[0] + "</h2><a href='#' id='link" + info[1] + "' data-bind='click : function(data, event) { showSummaryDialog(data, event, \"" + info[0] + "\") }'>Show Summary</a><table>";
+
+            //console.log(info[0] + ":" + models.CountryRegionMap.map[info[0]]);
+            var rowNum = 1;
+            if (info[5] != null) {
+                str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td><strong>#MSMEs</strong></td><td style='text-align:right'>" + this.numberWithCommas(info[5]) + "</td></tr>";
+            }
+            if (info[10] != null) {
+                str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td><strong>A2F as major/severe barrier</strong></td><td style='text-align:right'>" + this.numberWithCommas(info[10]) + "</td></tr>";
+            }
+            if ((info[6] != null) || (info[7] != null) || (info[8] != null) || (info[9] != null)) {
+                str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td colspan=2><strong>Access</strong></td></tr>";
+                if (info[6] != null) {
+                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Have Checking</strong></td><td style='text-align:right'>" + info[6] + "</td></tr>";
+                }
+                if (info[7] != null) {
+                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Have Overdraft</strong></td><td style='text-align:right'>" + info[7] + "</td></tr>";
+                }
+                if (info[8] != null) {
+                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Have Loan</strong></td><td style='text-align:right'>" + info[8] + "</td></tr>";
+                }
+                if (info[9] != null) {
+                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Have Access to Credit</strong></td><td style='text-align:right'>" + info[9] + "</td></tr>";
+                }
+            }
+            if ((info[11] != null) || (info[12] != null) || (info[13] != null) || (info[14] != null)) {
+                str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td colspan=2><strong>How well served?</strong></td></tr>";
+                if (info[11] != null) {
+                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Does not need credit %</strong></td><td style='text-align:right'>" + info[11] + "</td></tr>";
+                }
+                if (info[12] != null) {
+                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Unserved %</strong></td><td style='text-align:right'>" + info[12] + "</td></tr>";
+                }
+                if (info[13] != null) {
+                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Underserved %</strong></td><td style='text-align:right'>" + info[13] + "</td></tr>";
+                }
+                if (info[14] != null) {
+                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Well served %</strong></td><td style='text-align:right'>" + info[14] + "</td></tr>";
+                }
+            }
+            if ((info[18] != null) || (info[19] != null) || (info[20] != null) || (info[21] != null)) {
+                str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td colspan=2><strong>Source of Financing</strong></td></tr>";
+                if (info[18] != null) {
+                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Private Commercial Bank as Source of Financing</strong></td><td style='text-align:right'>" + info[18] + "</td></tr>";
+                }
+                if (info[19] != null) {
+                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>State-owned Bank and/or Govt. Agency as Source of Financing</strong></td><td style='text-align:right'>" + info[19] + "</td></tr>";
+                }
+                if (info[20] != null) {
+                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Non-bank Financial Institution as Source of Financing</strong></td><td style='text-align:right'>" + info[20] + "</td></tr>";
+                }
+                if (info[21] != null) {
+                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Other Source of Financing</strong></td><td style='text-align:right'>" + info[21] + "</td></tr>";
+                }
+            }
+            str += "</table>";
+
+            return str;
+        };
+
         MainModel.prototype.initiateBubbles = function (main) {
             if (this.bubbles.length == 0) {
-                for (var i = 0; i < models.MsmeData.rows.length; i++) {
+                for (var i = 0; i < models.MsmeData.rows.length + models.MsmeRegionData.rows.length; i++) {
                     (function (i) {
-                        var info = models.MsmeData.rows[i];
+                        var isCountry = (i < models.MsmeData.rows.length);
+                        var info = isCountry ? models.MsmeData.rows[i] : models.MsmeRegionData.rows[i - models.MsmeData.rows.length];
                         var bubble = new google.maps.Marker({
-                            position: new google.maps.LatLng(info[2], info[3]),
+                            position: isCountry ? (new google.maps.LatLng(info[2], info[3])) : (new google.maps.LatLng(info[27], info[28])),
+                            bubbleType: isCountry ? "country" : "region",
                             data: info
                         });
 
-                        var str = "<h2>" + info[0] + "</h2><a href='#' id='link" + info[1] + "' data-bind='click : function(data, event) { showSummaryDialog(data, event, \"" + info[0] + "\") }'>Show Summary</a><table>";
-
-                        //console.log(info[0] + ":" + models.CountryRegionMap.map[info[0]]);
-                        var rowNum = 1;
-                        if (info[5] != null) {
-                            str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td><strong>#MSMEs</strong></td><td style='text-align:right'>" + main.numberWithCommas(info[5]) + "</td></tr>";
-                        }
-                        if (info[10] != null) {
-                            str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td><strong>A2F as major/severe barrier</strong></td><td style='text-align:right'>" + main.numberWithCommas(info[10]) + "</td></tr>";
-                        }
-                        if ((info[6] != null) || (info[7] != null) || (info[8] != null) || (info[9] != null)) {
-                            str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td colspan=2><strong>Access</strong></td></tr>";
-                            if (info[6] != null) {
-                                str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Have Checking</strong></td><td style='text-align:right'>" + info[6] + "</td></tr>";
-                            }
-                            if (info[7] != null) {
-                                str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Have Overdraft</strong></td><td style='text-align:right'>" + info[7] + "</td></tr>";
-                            }
-                            if (info[8] != null) {
-                                str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Have Loan</strong></td><td style='text-align:right'>" + info[8] + "</td></tr>";
-                            }
-                            if (info[9] != null) {
-                                str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Have Access to Credit</strong></td><td style='text-align:right'>" + info[9] + "</td></tr>";
-                            }
-                        }
-                        if ((info[11] != null) || (info[12] != null) || (info[13] != null) || (info[14] != null)) {
-                            str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td colspan=2><strong>How well served?</strong></td></tr>";
-                            if (info[11] != null) {
-                                str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Does not need credit %</strong></td><td style='text-align:right'>" + info[11] + "</td></tr>";
-                            }
-                            if (info[12] != null) {
-                                str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Unserved %</strong></td><td style='text-align:right'>" + info[12] + "</td></tr>";
-                            }
-                            if (info[13] != null) {
-                                str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Underserved %</strong></td><td style='text-align:right'>" + info[13] + "</td></tr>";
-                            }
-                            if (info[14] != null) {
-                                str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Well served %</strong></td><td style='text-align:right'>" + info[14] + "</td></tr>";
-                            }
-                        }
-                        if ((info[15] != null) || (info[16] != null) || (info[17] != null) || (info[18] != null)) {
-                            str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td colspan=2><strong>Source of Financing</strong></td></tr>";
-                            if (info[15] != null) {
-                                str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Private Commercial Bank as Source of Financing</strong></td><td style='text-align:right'>" + info[15] + "</td></tr>";
-                            }
-                            if (info[16] != null) {
-                                str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>State-owned Bank and/or Govt. Agency as Source of Financing</strong></td><td style='text-align:right'>" + info[16] + "</td></tr>";
-                            }
-                            if (info[17] != null) {
-                                str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Non-bank Financial Institution as Source of Financing</strong></td><td style='text-align:right'>" + info[17] + "</td></tr>";
-                            }
-                            if (info[18] != null) {
-                                str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Other Source of Financing</strong></td><td style='text-align:right'>" + info[18] + "</td></tr>";
-                            }
-                        }
-                        str += "</table>";
-
                         var infowindow = new google.maps.InfoWindow({
-                            content: str
+                            content: isCountry ? main.getCountryInfo(info) : main.getRegionInfo(info)
                         });
 
                         google.maps.event.addListener(bubble, 'click', function () {

@@ -73,10 +73,10 @@
                     <div class="left" id="bubbleSelector" data-bind="visible: !isChartSelectorVisible()">
 
                         <select id="bubbleIndicator" style="width: 387px;" data-bind="value: bubbleIndicatorValue, event: { change: showSelectors }">
-                            <option value="19">dollar value gap</option>
-                            <option value="5"># of enterprises</option>
-                            <option value="12">relative value gap in % terms unserved (%)</option>
-                            <option value="13">relative value gap in % terms underserved (%)</option>
+                            <option value="gap">dollar value gap</option>
+                            <option value="enterprise"># of enterprises</option>
+                            <option value="unserved">relative value gap in % terms unserved (%)</option>
+                            <option value="underserved">relative value gap in % terms underserved (%)</option>
                         </select>
                     </div>
                     <div class="left" id="chartSelector" data-bind="visible: isChartSelectorVisible">
@@ -174,7 +174,7 @@
                 <tr>
                     <td></td>
                     <td>
-                        <select style="width: 200px" data-bind="options: countries, optionsText: 'Name', value: selectedValues()[0], event: { change: onCountryChange }"></select></td>
+                        <select style="width: 200px" data-bind="options: countriesAndRegions, optionsText: 'Name', value: selectedValues()[0], event: { change: onCountryChange }"></select></td>
                     <td>
                         <select style="width: 200px" data-bind="options: countriesAndRegions, optionsText: 'Name', value: selectedValues()[1], event: { change: onCountryChange }, enable: summaryType() == 'compare'"></select></td>
                     <td>
