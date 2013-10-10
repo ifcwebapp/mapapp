@@ -77,7 +77,7 @@ var models;
                 autoOpen: false,
                 modal: true,
                 height: $(window).height() - 100,
-                width: 1400,
+                width: 1000,
                 dialogClass: 'noTitleDialog'
             });
 
@@ -124,8 +124,13 @@ var models;
                 chart: { type: 'column' },
                 //colors: ['#762A83', '#9970AB', '#C2A5CF'],
                 title: { text: 'Access' },
-                xAxis: { categories: ['Have Checking', 'Have Overdraft', 'Have Loan', 'Have Access to Credit'] },
-                yAxis: { title: { text: "%" } },
+                xAxis: {
+                    categories: ['Have Checking', 'Have Overdraft', 'Have Loan', 'Have Access to Credit'],
+                    labels: {
+                        staggerLines: 5
+                    }
+                },
+                yAxis: { title: { text: "%" }, max: 100 },
                 series: [{ name: "item1", data: [] }, { name: "item2", data: [] }, { name: "item3", data: [] }],
                 credits: { enabled: false },
                 tooltip: { valueSuffix: "%" }
@@ -138,9 +143,12 @@ var models;
                 //colors: ['#762A83', '#9970AB', '#C2A5CF'],
                 title: { text: 'How well served?' },
                 xAxis: {
-                    categories: ['Does not need credit', 'Unserved', 'Underserved', 'Well served']
+                    categories: ['Does not need credit', 'Unserved', 'Underserved', 'Well served'],
+                    labels: {
+                        staggerLines: 5
+                    }
                 },
-                yAxis: { title: { text: "%" } },
+                yAxis: { title: { text: "%" }, max: 100 },
                 series: [{ name: "item1", data: [] }, { name: "item2", data: [] }, { name: "item3", data: [] }],
                 credits: { enabled: false },
                 tooltip: { valueSuffix: "%" }
@@ -153,9 +161,12 @@ var models;
                 //colors: ['#762A83', '#9970AB', '#C2A5CF'],
                 title: { text: 'Source of Financing' },
                 xAxis: {
-                    categories: ['Private Commercial Bank', 'State-owned Bank and/or Govt. Agency', 'Non-bank Financial Institution', 'Other']
+                    categories: ['Private Commercial Bank', 'State-owned Bank and/or Govt. Agency', 'Non-bank Financial Institution', 'Other'],
+                    labels: {
+                        staggerLines: 5
+                    }
                 },
-                yAxis: { title: { text: "%" } },
+                yAxis: { title: { text: "%" }, max: 100 },
                 series: [{ name: "item1", data: [] }, { name: "item2", data: [] }, { name: "item3", data: [] }],
                 credits: { enabled: false },
                 tooltip: { valueSuffix: "%" }

@@ -160,7 +160,7 @@
         </div>
     </div>
 
-    <div id="summary">
+    <div id="summary" style="font-size: 1.3em">
         <div style="margin-bottom: 10px">
             <div class="left">
                 <input type="radio" name="summaryType" value="summary" data-bind="checked: summaryType, click: onCountryChange" />Country Summary
@@ -200,159 +200,159 @@
                 <tr>
                     <td colspan="4">
                         <div>
-                            <div id="accountChart" style="min-width: 410px; height: 300px; float: left"></div>
-                            <div id="serviceChart" style="min-width: 410px; height: 300px; float: left"></div>
-                            <div id="sourceChart" style="min-width: 410px; height: 300px; float: left"></div>
+                            <div id="accountChart" style="min-width: 310px; height: 300px; float: left"></div>
+                            <div id="serviceChart" style="min-width: 310px; height: 300px; float: left"></div>
+                            <div id="sourceChart" style="min-width: 310px; height: 300px; float: left"></div>
                         </div>
                     </td>
 
                 </tr>
                 <tr>
-                    <td>GDP per capita (constant 2005 US$) </td>
+                    <td style="font-weight: bold">GDP per capita (constant 2005 US$) </td>
                     <td data-bind="text: selectedValues()[0]().Gdp2005"></td>
                     <td data-bind="text: selectedValues()[1]().Gdp2005"></td>
                     <td data-bind="text: selectedValues()[2]().Gdp2005"></td>
                 </tr>
                 <tr class="odd">
-                    <td>GDP per capita (current US$)  </td>
+                    <td style="font-weight: bold">GDP per capita (current US$)  </td>
                     <td data-bind="text: selectedValues()[0]().GdpCurrent"></td>
                     <td data-bind="text: selectedValues()[1]().GdpCurrent"></td>
                     <td data-bind="text: selectedValues()[2]().GdpCurrent"></td>
                 </tr>
                 <tr>
-                    <td>Automated teller machines (ATMs) (per 100,000 people)  </td>
+                    <td style="font-weight: bold">Automated teller machines (ATMs) (per 100,000 people)  </td>
                     <td data-bind="text: selectedValues()[0]().Atms"></td>
                     <td data-bind="text: selectedValues()[1]().Atms"></td>
                     <td data-bind="text: selectedValues()[2]().Atms"></td>
                 </tr>
                 <tr class="odd">
-                    <td>Commercial bank branches (per 100,000 people)  </td>
+                    <td style="font-weight: bold">Commercial bank branches (per 100,000 people)  </td>
                     <td data-bind="text: selectedValues()[0]().BankBranches"></td>
                     <td data-bind="text: selectedValues()[1]().BankBranches"></td>
                     <td data-bind="text: selectedValues()[2]().BankBranches"></td>
                 </tr>
                 <tr>
-                    <td>Point-of-sale terminals (per 100,000 people)  </td>
+                    <td style="font-weight: bold">Point-of-sale terminals (per 100,000 people)  </td>
                     <td data-bind="text: selectedValues()[0]().PosTerminals"></td>
                     <td data-bind="text: selectedValues()[1]().PosTerminals"></td>
                     <td data-bind="text: selectedValues()[2]().PosTerminals"></td>
                 </tr>
                 <tr class="odd">
-                    <td>Domestic credit to private sector (% of GDP)  </td>
+                    <td style="font-weight: bold">Domestic credit to private sector (% of GDP)  </td>
                     <td data-bind="text: selectedValues()[0]().DomesticCredit"></td>
                     <td data-bind="text: selectedValues()[1]().DomesticCredit"></td>
                     <td data-bind="text: selectedValues()[2]().DomesticCredit"></td>
                 </tr>
                 <tr>
-                    <td>Lending interest rate (%) </td>
+                    <td style="font-weight: bold">Lending interest rate (%) </td>
                     <td data-bind="text: selectedValues()[0]().LendingIr"></td>
                     <td data-bind="text: selectedValues()[1]().LendingIr"></td>
                     <td data-bind="text: selectedValues()[2]().LendingIr"></td>
                 </tr>
                 <tr class="odd">
-                    <td>Population, total  </td>
+                    <td style="font-weight: bold">Population, total  </td>
                     <td data-bind="text: selectedValues()[0]().Population"></td>
                     <td data-bind="text: selectedValues()[1]().Population"></td>
                     <td data-bind="text: selectedValues()[2]().Population"></td>
                 </tr>
                 <tr>
-                    <td>Population ages 15-64 (% of total)  </td>
+                    <td style="font-weight: bold">Population ages 15-64 (% of total)  </td>
                     <td data-bind="text: selectedValues()[0]().PopulationAges"></td>
                     <td data-bind="text: selectedValues()[1]().PopulationAges"></td>
                     <td data-bind="text: selectedValues()[2]().PopulationAges"></td>
                 </tr>
                 <tr class="odd">
-                    <td>Mobile cellular subscriptions (per 100 people)  </td>
+                    <td style="font-weight: bold">Mobile cellular subscriptions (per 100 people)  </td>
                     <td data-bind="text: selectedValues()[0]().MobileSubscriptions"></td>
                     <td data-bind="text: selectedValues()[1]().MobileSubscriptions"></td>
                     <td data-bind="text: selectedValues()[2]().MobileSubscriptions"></td>
                 </tr>
                 <tr>
-                    <td>Labor force, total  </td>
+                    <td style="font-weight: bold">Labor force, total  </td>
                     <td data-bind="text: selectedValues()[0]().LaborForce"></td>
                     <td data-bind="text: selectedValues()[1]().LaborForce"></td>
                     <td data-bind="text: selectedValues()[2]().LaborForce"></td>
                 </tr>
                 <tr class="odd">
-                    <td>Employment to population ratio, 15+, total (%) </td>
+                    <td style="font-weight: bold">Employment to population ratio, 15+, total (%) </td>
                     <td data-bind="text: selectedValues()[0]().EmploymentRatio"></td>
                     <td data-bind="text: selectedValues()[1]().EmploymentRatio"></td>
                     <td data-bind="text: selectedValues()[2]().EmploymentRatio"></td>
                 </tr>
                 <tr>
-                    <td>Poverty headcount ratio at $2 a day (PPP) (% of population)  </td>
+                    <td style="font-weight: bold">Poverty headcount ratio at $2 a day (PPP) (% of population)  </td>
                     <td data-bind="text: selectedValues()[0]().PovertyRatio"></td>
                     <td data-bind="text: selectedValues()[1]().PovertyRatio"></td>
                     <td data-bind="text: selectedValues()[2]().PovertyRatio"></td>
                 </tr>
                 <tr class="odd">
-                    <td>Strength of legal rights index (0=weak to 10=strong)  </td>
+                    <td style="font-weight: bold">Strength of legal rights index (0=weak to 10=strong)  </td>
                     <td data-bind="text: selectedValues()[0]().LegalRightsStrength"></td>
                     <td data-bind="text: selectedValues()[1]().LegalRightsStrength"></td>
                     <td data-bind="text: selectedValues()[2]().LegalRightsStrength"></td>
                 </tr>
                 <tr>
-                    <td>Credit depth of information index (0=low to 6=high) </td>
+                    <td style="font-weight: bold">Credit depth of information index (0=low to 6=high) </td>
                     <td data-bind="text: selectedValues()[0]().CreditDepth"></td>
                     <td data-bind="text: selectedValues()[1]().CreditDepth"></td>
                     <td data-bind="text: selectedValues()[2]().CreditDepth"></td>
                 </tr>
                 <tr class="odd">
-                    <td>Ease of doing business index (1= most business-friendly regulations) </td>
+                    <td style="font-weight: bold">Ease of doing business index (1= most business-friendly regulations) </td>
                     <td data-bind="text: selectedValues()[0]().EaseOfBusiness"></td>
                     <td data-bind="text: selectedValues()[1]().EaseOfBusiness"></td>
                     <td data-bind="text: selectedValues()[2]().EaseOfBusiness"></td>
                 </tr>
                 <tr>
-                    <td>Literacy Rate, adult total (% of people ages 15 and above)  </td>
+                    <td style="font-weight: bold">Literacy Rate, adult total (% of people ages 15 and above)  </td>
                     <td data-bind="text: selectedValues()[0]().LiteracyRate"></td>
                     <td data-bind="text: selectedValues()[1]().LiteracyRate"></td>
                     <td data-bind="text: selectedValues()[2]().LiteracyRate"></td>
                 </tr>
                 <tr class="odd">
-                    <td>Deposit interest rate (%)  </td>
+                    <td style="font-weight: bold">Deposit interest rate (%)  </td>
                     <td data-bind="text: selectedValues()[0]().DepositIr"></td>
                     <td data-bind="text: selectedValues()[1]().DepositIr"></td>
                     <td data-bind="text: selectedValues()[2]().DepositIr"></td>
                 </tr>
                 <tr>
-                    <td>Unemployment, total (% of total labor force)  </td>
+                    <td style="font-weight: bold">Unemployment, total (% of total labor force)  </td>
                     <td data-bind="text: selectedValues()[0]().Unemployment"></td>
                     <td data-bind="text: selectedValues()[1]().Unemployment"></td>
                     <td data-bind="text: selectedValues()[2]().Unemployment"></td>
                 </tr>
                 <tr class="odd">
-                    <td>Interest rate spread (lending minus deposit rate, %)  </td>
+                    <td style="font-weight: bold">Interest rate spread (lending minus deposit rate, %)  </td>
                     <td data-bind="text: selectedValues()[0]().IrSpread"></td>
                     <td data-bind="text: selectedValues()[1]().IrSpread"></td>
                     <td data-bind="text: selectedValues()[2]().IrSpread"></td>
                 </tr>
                 <tr>
-                    <td>Private Credit bureau coverage (% of adults)  </td>
+                    <td style="font-weight: bold">Private Credit bureau coverage (% of adults)  </td>
                     <td data-bind="text: selectedValues()[0]().PrivateCreditCoverage"></td>
                     <td data-bind="text: selectedValues()[1]().PrivateCreditCoverage"></td>
                     <td data-bind="text: selectedValues()[2]().PrivateCreditCoverage"></td>
                 </tr>
                 <tr class="odd">
-                    <td>Public credit registry coverage (% of adults)  </td>
+                    <td style="font-weight: bold">Public credit registry coverage (% of adults)  </td>
                     <td data-bind="text: selectedValues()[0]().PublicCreditCoverage"></td>
                     <td data-bind="text: selectedValues()[1]().PublicCreditCoverage"></td>
                     <td data-bind="text: selectedValues()[2]().PublicCreditCoverage"></td>
                 </tr>
                 <tr>
-                    <td>Labor participation rate, male (% of male population ages 15+)  </td>
+                    <td style="font-weight: bold">Labor participation rate, male (% of male population ages 15+)  </td>
                     <td data-bind="text: selectedValues()[0]().LaborMale"></td>
                     <td data-bind="text: selectedValues()[1]().LaborMale"></td>
                     <td data-bind="text: selectedValues()[2]().LaborMale"></td>
                 </tr>
                 <tr class="odd">
-                    <td>Labor participation rate, female (% of female population ages 15+)  </td>
+                    <td style="font-weight: bold">Labor participation rate, female (% of female population ages 15+)  </td>
                     <td data-bind="text: selectedValues()[0]().LaborFemale"></td>
                     <td data-bind="text: selectedValues()[1]().LaborFemale"></td>
                     <td data-bind="text: selectedValues()[2]().LaborFemale"></td>
                 </tr>
                 <tr>
-                    <td>Urban population (% of total) </td>
+                    <td style="font-weight: bold">Urban population (% of total) </td>
                     <td data-bind="text: selectedValues()[0]().UrbanPopulation"></td>
                     <td data-bind="text: selectedValues()[1]().UrbanPopulation"></td>
                     <td data-bind="text: selectedValues()[2]().UrbanPopulation"></td>
