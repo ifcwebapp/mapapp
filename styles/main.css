@@ -296,8 +296,9 @@ border-top: none;*/
     float: left;
     padding: 0px 18px 0px 0px;
     width: 29%;
-    
-    font-size: 1.1em;
+    font-size: 1.2em;
+    line-height: 20px;
+    text-align: justify;
 }
 
     #bottom-left img {
@@ -307,8 +308,9 @@ border-top: none;*/
 #bottom-middle {
     float: left;
     padding: 0px 18px 0px 18px;
-    width: 29%;
-    font-size: 1.1em;
+    width: 40%;
+    font-size: 1.5em;
+    line-height: 28px;
     /*border-right: solid 1px #DDD;
     border-left: solid 1px #DDD;*/
 }
@@ -316,7 +318,7 @@ border-top: none;*/
 #bottom-right {
     float: right;
     padding: 0px 0px 0px 18px;
-    width: 29%;
+    width: 19%;
 }
 
 h2 {
