@@ -20,7 +20,7 @@ body {
 
 #main {
     overflow: auto;
-    padding-bottom: 30px;
+    padding: 0px 5px 30px 5px;
 }
 /* must be same height as the footer */
 
@@ -41,7 +41,7 @@ body:before {
 }
 
 #map-canvas {
-    width: 750px;
+    width: 990px;
     height: 550px;
 }
 
@@ -67,10 +67,8 @@ body:before {
 
 #leftColumn {
     float: left;
-    margin: 0px 10px 0px 5px;
     width: 750px;
     height: 590px;
-    margin: 0px 5px;
     float: left;
     /*border-left: solid 1px #DDD;*/
     
@@ -120,7 +118,7 @@ body:before {
 #panel, #shortPanel {
     position: relative;
     z-index: 5;
-    padding: 5px;
+    padding: 5px 0px;
     /*border: 1px solid #999;
 background-color: rgba(255, 255, 255, 0.77);*/
 }
@@ -289,14 +287,16 @@ td {
     /*border: 1px solid #ddd;
 border-top: none;*/
     /*padding: 5px 0;*/
-    width: 988px;
+    width: 990px;
     /*margin: 20px auto;*/
 }
 
 #bottom-left {
     float: left;
-    padding: 0 18px;
+    padding: 0px 18px 0px 0px;
     width: 29%;
+    
+    font-size: 1.1em;
 }
 
     #bottom-left img {
@@ -305,15 +305,16 @@ border-top: none;*/
 
 #bottom-middle {
     float: left;
-    padding: 0 18px;
+    padding: 0px 18px 0px 18px;
     width: 29%;
-    border-right: solid 1px #DDD;
-    border-left: solid 1px #DDD;
+    font-size: 1.1em;
+    /*border-right: solid 1px #DDD;
+    border-left: solid 1px #DDD;*/
 }
 
 #bottom-right {
-    float: left;
-    padding: 0 18px;
+    float: right;
+    padding: 0px 0px 0px 18px;
     width: 29%;
 }
 
@@ -377,4 +378,23 @@ a:focus {
 
 }
 
+.report_wrapper {
+    width: 600px;
+    margin: 0 auto;
+    padding: 10px 20px;
+    /*border: 1px solid #ddd;
+    border-top: 3px solid darkblue;*/
+
+}
+
+.report_title {
+    font: 1.6em Georgia, Times, serif;
+    width: 400px;
+}
+
+.report_description {
+    margin-top: 20px;
+    font-size: 1.2em;
+    line-height: 20px;
+}
 

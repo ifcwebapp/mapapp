@@ -16,7 +16,7 @@ var models;
             this.bubbleIndicatorValue = ko.observable('19');
             this.isChartSelectorVisible = ko.observable(false);
             this.isLegendVisible = ko.observable(false);
-            this.countries = ko.observableArray([]);
+            //countries: KnockoutObservableArray<any> = ko.observableArray([]);
             this.countriesAndRegions = ko.observableArray([]);
             this.isExpanded = ko.observable(true);
             this.selectedValues = ko.observableArray();
@@ -49,24 +49,29 @@ var models;
             _this.initiateBubbles(_this);
             _this.showBubbles(this.map.getZoom(), this.map);
 
-            for (var i = 0; i < models.MsmeData.rows.length; i++) {
-                var c = new models.SummaryItem(models.MsmeData.rows[i], models.CountryIndicatorData.rows[models.MsmeData.rows[i][1]], 'country');
+            _this.countriesAndRegions.push(new models.SummaryItem(models.MsmeDevelopingData.rows, models.CountryIndicatorData.developmentCountries, 'development'));
+            var regionRows = models.MsmeRegionData.rows;
+            regionRows.sort(function (left, right) {
+                return left[0] == right[0] ? 0 : (left[0] < right[0] ? -1 : 1);
+            });
+            for (var i = 0; i < regionRows.length; i++) {
+                var c = new models.SummaryItem(regionRows[i], null, 'region');
+                _this.countriesAndRegions.push(c);
+            }
+
+            var countryRows = models.MsmeData.rows;
+            countryRows.sort(function (left, right) {
+                return left[0] == right[0] ? 0 : (left[0] < right[0] ? -1 : 1);
+            });
+            for (var i = 0; i < countryRows.length; i++) {
+                var c = new models.SummaryItem(countryRows[i], models.CountryIndicatorData.rows[countryRows[i][1]], 'country');
 
                 //_this.countries.push(c);
                 _this.countriesAndRegions.push(c);
             }
 
             //_this.countries.sort(function (left, right) { return left.Name == right.Name ? 0 : (left.Name < right.Name ? -1 : 1) });
-            _this.countriesAndRegions.sort(function (left, right) {
-                return left.Name == right.Name ? 0 : (left.Name < right.Name ? -1 : 1);
-            });
-            for (var i = 0; i < models.MsmeRegionData.rows.length; i++) {
-                var c = new models.SummaryItem(models.MsmeRegionData.rows[i], null, 'region');
-                _this.countriesAndRegions.push(c);
-            }
-
-            _this.countriesAndRegions.push(new models.SummaryItem(models.MsmeDevelopingData.rows, models.CountryIndicatorData.developmentCountries, 'development'));
-
+            //_this.countriesAndRegions.sort(function (left, right) { return left.Name == right.Name ? 0 : (left.Name < right.Name ? -1 : 1) });
             $('#scrollablePart').height($(window).height() - 160);
             _this.summaryDialog = $('#summary').dialog({
                 autoOpen: false,
@@ -206,7 +211,12 @@ var models;
                     data.selectedValues()[0](c[0]);
                 }
             } else {
-                data.selectedValues()[0](data.countriesAndRegions()[0]);
+                var c = $.grep(data.countriesAndRegions(), function (e, i) {
+                    return e.Name == 'Afghanistan';
+                });
+                if (c.length > 0) {
+                    data.selectedValues()[0](c[0]);
+                }
             }
             data.summaryType('summary');
             data.onCountryChange(data, event);

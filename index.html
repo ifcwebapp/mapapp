@@ -28,9 +28,10 @@
             </script>
         </div>
         <div id="main">
-            
+            <h2> IFC Enterprise Finance Gap Database</h2>
             <div style="height: 630px">
-                <div id="leftColumn">
+
+                
                 <div id="shortPanel" style="max-width: 700px" data-bind="visible: !isExpanded(), click: expandMenu">
                     <div data-bind="html: shortPanelText"></div>
                     <div class="clear"></div>
@@ -119,25 +120,29 @@
                     <div class="clear"></div>
                 </div>
                 <div id="map-canvas"></div>
-            </div>
+            
                 
-                <div id="rightColumn" style=""><h2>Closing MSME Credit Gap</h2><p>Studies have underscored the importance of small businesses in contributing to economic growth and job creation making them a key development priority.</p> <p>Nevertheless, the total unmet need for credit by all MSMEs in emerging markets today exceeds $2 trillion dollars. 45–55 percent of informal and formal MSMEs in developing economies are either unserved or underserved.</p> <a href="documents/Report.pdf">Read full report</a> </div>
-                <div class="clear"></div>
+            
             </div>
             <div class="clear"></div>
             <div id="data">
                 <div class="section clearfix">
                     <div id="bottom-left">
-                        <h2>REPORT</h2>
-                        Closing the Credit Gap for Formal and Informal MSMEs (<a href="documents/Report.pdf">Full PDF report</a>)
+                        The <i>IFC Enterprise Finance Gap Database</i>, using primarily data from World Bank Enterprise Surveys, estimates the number of micro, small, and medium enterprises (MSMEs) in the world, and the degree of access to credit and use of deposit accounts for formal and informal MSMEs. The database currently covers 177 countries.
                     </div>
                     <div id="bottom-middle">
-                        <h2>DATA</h2>
-                        Download MSME credit gap data for 177 countries
+                       <div><i>In Developing Countries:</i></div> 
+                         <div>399,735,661 MSMEs</div>
+                        <div>15% have access to credit</div>
+                         <div>40% unserved</div>
+                         <div>10% underserved</div>
+                        <div>Access to finance a major constraint for 25%</div>
 
                     </div>
                     <div id="bottom-right">
+                        <div style="float: right">
                         <h2>CONNECT WITH US</h2>
+                            <div style="width: 50px; margin: 0 auto;">
                         <div id="twitter_logo">
                             <a href="https://twitter.com/SMEFinanceForum" title="SME Finance Forum Twitter" target="_blank">
                                 <div style="width: 100%; height: 100%"></div>
@@ -148,7 +153,8 @@
                                 <div style="width: 100%; height: 100%"></div>
                             </a>
                         </div>
-
+                                </div>
+                            </div>
                     </div>
                 </div>
             </div>
@@ -159,7 +165,7 @@
         <div style="margin-bottom: 10px">
             <div class="left">
                 <input type="radio" name="summaryType" value="summary" data-bind="checked: summaryType, click: onCountryChange" />Country Summary
-                <input type="radio" name="summaryType" value="compare" data-bind="checked: summaryType, click: onCountryChange" />Compare Countries
+                <input type="radio" name="summaryType" value="compare" data-bind="checked: summaryType, click: onCountryChange" />Compare Regions/Countries
             </div>
             
             <div class="close right" data-bind="click: closeSummary"></div>

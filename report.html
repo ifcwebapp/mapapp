@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Report</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <link href="styles/main.css" rel="stylesheet" type="text/css" />
+    <script src="scripts/jquery-2.0.3.min.js"></script>
+    
+
+</head>
+<body>
+    <div id="wrap">
+        <div id="header">
+            <script type="text/javascript">
+                $("#header").load("header.html");
+            </script>
+        </div>
+        <div id="main">
+            <div id="leftColumn" class="methodology" style="height: auto">
+                <div class="report_wrapper">
+                    <div class="left">
+                        <img src="Content/report_small.png" />
+                    </div>
+                    <div class="left" style="padding-left: 40px; padding-top: 20px;">
+                        <div class="report_title">Closing the Credit Gap for Formal and Informal Micro, Small, and Medium Enterprises</div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="report_description">
+                    <i>Closing the Credit Gap for Formal and Informal Micro, Small, and Medium Enterprises</i> reports on the state of the MSME finance gap based on data from the IFC Enterprise Finance Gap Database, with a focus on informal enterprises based on the research findings presented to the IFC SME and Jobs Committee.
+                    <a href="documents/Report.pdf">Read full report</a>
+                </div>
+                <div class="report_description">
+                    This factsheet provides a summary of the data from the <i>IFC Enterprise Finance Gap Database</i>, and highlights the key data points available for the formal micro, formal SME, and the aggregated formal and informal MSME sectors. 
+                </div>
+            </div>
+            <div id="mRight" class="methodologyRight" >
+                <script type="text/javascript">
+                    $("#mRight").load("right_column.html");
+            </script>
+                
+            </div>
+        </div>
+    </div>
+
+    
+    <div id="footer">
+        <script type="text/javascript">
+            $("#footer").load("footer.html");
+        </script>
+    </div>
+   
+</body>
+</html>
