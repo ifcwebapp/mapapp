@@ -401,3 +401,30 @@ a:focus {
     line-height: 20px;
 }
 
+ul.dash {
+    padding-left: 20px;
+}
+
+ul.dash > li {
+    list-style-image:url('../Content/dash.png');
+}
+
+ul.circle li {
+    list-style-image:none;
+    list-style-type:circle; 
+}
+
+ul.roman li {
+    list-style-image:none;
+    list-style-type:lower-roman; 
+}
+
+ul.none li {
+    list-style-image:none;
+    list-style-type: none; 
+}
+
+ul.none li > span {
+    vertical-align: super;
+    font-size: 0.9em;
+}
