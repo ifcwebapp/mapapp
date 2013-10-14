@@ -352,7 +352,7 @@ var models;
                     bubble.setIcon({
                         path: google.maps.SymbolPath.CIRCLE,
                         fillOpacity: 1,
-                        fillColor: '#762A83',
+                        fillColor: '#FDBE85',
                         strokeOpacity: 0,
                         scale: alpha.value * parseInt(bubble.data[alpha.index]) + scaledZoom * 4
                     });

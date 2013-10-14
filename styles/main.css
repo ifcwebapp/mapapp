@@ -119,6 +119,7 @@ body:before {
     position: relative;
     z-index: 5;
     padding: 5px 0px;
+    font-size: 1.1em;
     /*border: 1px solid #999;
 background-color: rgba(255, 255, 255, 0.77);*/
 }
@@ -194,7 +195,7 @@ td {
 
     #main-nav li {
         float: left;
-        font-size: 11px;
+        font-size: 12px;
         font-weight: bold;
         list-style: none none;
         padding: 0;
@@ -249,10 +250,10 @@ td {
         background: url(../Content/seperator.gif) no-repeat left;
         color: #fff;
         display: block;
-        line-height: 28px;
+        line-height: 34px;
         padding: 0 16px 0 17px;
         text-transform: uppercase;
-        font-size: 11px;
+        font-size: 12px;
         vertical-align: middle;
         margin-left: -1px;
     }
@@ -294,8 +295,8 @@ border-top: none;*/
 
 #bottom-left {
     float: left;
-    padding: 0px 18px 0px 0px;
-    width: 29%;
+    padding: 0px 18px 0px 9px;
+    width: 39%;
     font-size: 1.2em;
     line-height: 20px;
     text-align: justify;
@@ -307,18 +308,18 @@ border-top: none;*/
 
 #bottom-middle {
     float: left;
-    padding: 0px 18px 0px 18px;
+    padding: 0px 9px 0px 9px;
     width: 42%;
     font-size: 1.5em;
     line-height: 28px;
-    /*border-right: solid 1px #DDD;
-    border-left: solid 1px #DDD;*/
+    border-right: solid 1px #DDD;
+    border-left: solid 1px #DDD;
 }
 
 #bottom-right {
     float: right;
-    padding: 0px 0px 0px 18px;
-    width: 19%;
+    padding: 0px 0px 0px 0px;
+    width: 13%;
 }
 
 h2 {
@@ -401,3 +402,34 @@ a:focus {
     line-height: 20px;
 }
 
+ul.dash {
+    padding-left: 20px;
+}
+
+ul.dash > li {
+    list-style-image:url('../Content/dash.png');
+}
+
+ul.circle li {
+    list-style-image:none;
+    list-style-type:circle; 
+}
+
+ul.roman li {
+    list-style-image:none;
+    list-style-type:lower-roman; 
+}
+
+ul.none li {
+    list-style-image:none;
+    list-style-type: none; 
+}
+
+ul.none li > span {
+    vertical-align: super;
+    font-size: 0.9em;
+}
+
+.headerBar {
+    display: none !important;
+}
