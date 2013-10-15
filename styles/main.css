@@ -20,14 +20,14 @@ body {
 
 #main {
     overflow: auto;
-    padding: 0px 5px 30px 5px;
+    padding: 0px 5px 40px 5px;
 }
 /* must be same height as the footer */
 
 #footer {
     position: relative;
-    margin-top: -30px; /* negative value of footer height */
-    height: 30px;
+    margin-top: -40px; /* negative value of footer height */
+    height: 40px;
     clear: both;
 }
 
@@ -340,12 +340,7 @@ a:focus {
         text-decoration: underline;
     }
 
-.disclaimer {
-    font-size: 11px;
-    color: #AAAAAA;
-    padding-top: 3px;
-    line-height: 15px;
-}
+
 
 .methodology h1{
     color: #365F91;
@@ -432,4 +427,40 @@ ul.none li > span {
 
 .headerBar {
     display: none !important;
+}
+
+/*------- footer --------*/
+#group_custom_footer {
+    width: 990px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 40px;
+    margin-top: 35px;
+padding-top: 10px;
+border-top: 5px solid #CCCCCC;
+}
+
+.footer_logos {
+float: right;
+}
+
+.gpfi_logo {
+margin-right: 10px;
+float: left;
+}
+
+.disclaimer {
+font-size: 11px;
+float: left;
+color: #AAAAAA;
+padding-top: 3px;
+line-height: 15px;
+}
+
+.logo_title {
+    background-image: url(../Content/title_label.png);
+    background-repeat: no-repeat;
+    padding-left: 27px;
+    color: #7D7D87;
+    text-align: left;
 }

@@ -352,7 +352,7 @@ var models;
                     bubble.setIcon({
                         path: google.maps.SymbolPath.CIRCLE,
                         fillOpacity: 1,
-                        fillColor: '#FDBE85',
+                        fillColor: '#E6550D',
                         strokeOpacity: 0,
                         scale: alpha.value * parseInt(bubble.data[alpha.index]) + scaledZoom * 4
                     });
@@ -517,7 +517,9 @@ var models;
                 }
             }
             str += "</table>";
-
+            if (info[1] != 'LAAM') {
+                str = "<div style='height: 200px'>" + str + "</div>";
+            }
             return str;
         };
 
